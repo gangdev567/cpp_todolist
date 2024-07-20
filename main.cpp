@@ -42,6 +42,21 @@ class TodoList {
                 std::cout << i << ": " << items[i].task << std::endl;
             }
         }
+
+        void searchTasks(const std::string& keyword) {
+            bool found = false;
+            for (size_t i = 0; i < items.size(); ++i){
+                if(items[i].task.find(keyword) != std::string::npos) {
+                    std::cout << "[" << (items[i].completed ? "x" : " ") << "]";
+                    std::cout << i << items[i].task << std::endl;
+                    found = true;
+                }
+            }
+            if(!found) {
+                std::cout << "No tasks found containg '" << keyword << "'." << std::endl;
+            }
+        }
+
 };
 
 int main() {
@@ -56,7 +71,7 @@ int main() {
         std::cout << "3. Toggle Completion" << std::endl;
         std::cout << "4. Display Tasks" << std::endl;
         std::cout << "5. Exit" << std::endl;
-
+        std::cout << "6. Search Tasks" << std::endl;
         std::cout << "Enter your choice: ";
         
         std::cin >> choice;
@@ -87,6 +102,11 @@ int main() {
                 break;
             case 5:
                 return 0; // 프로그램 종료
+            case 6:
+                std::cout << "Enter keyword to search: ";
+                std::getline(std::cin, newTask);
+                todoList.searchTasks(newTask);
+                break;
             default:
                 std::cout << "Invalid choice." << std::endl;
             
